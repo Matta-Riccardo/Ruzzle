@@ -2,6 +2,7 @@ package it.polito.tdp.ruzzle;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -90,6 +91,11 @@ public class FXMLController {
 
     @FXML
     void handleProva(ActionEvent event) {
+    	
+    	//"pulisco" l'interfaccia grafica settando a falso la proprietà setDefaultButton a falso
+    	for (Pos p : letters.keySet()) {
+    		letters.get(p).setDefaultButton(false);
+    	}
     		
     	String parola = txtParola.getText() ;
     	if(parola.length() <= 1) {
@@ -104,16 +110,44 @@ public class FXMLController {
     	}
     	
     	//TODO
+    	
+    	//voglio ricercando la parola illuminare l'interfaccia grafica (i bottoni) quando trovo la parola
+    	//per vederla graficamente sulla matrice: posso farlo agendo sulla proprietà di ogni bottone in JavaFX 
+    	//se un boottone ha defaultSetButton settata a true si illumina, se falsa rimane un bottone classico
+    	
+    	//quindi recupero la parola data in input dall'area di testo, mi recupero le sue posizioni eventualmente dal modello
+    	//e se la parola è trovata ricevo le posizioni altrimenti ricevo null. Se ricevo le posizioni andrò a illuminare i
+    	//bottoni corrispondenti
+    	List<Pos> posizioni = this.model.trovaParola(parola);
+    	if(posizioni != null) {
+    		for(Pos p : posizioni) {
+    			letters.get(p).setDefaultButton(true); //ho una mappa che mette in relazione le posizioni con i bottoni corrispondenti
+    			                                       //quindi, scorrendo le varie posizioni p, ottengo il bottone in posizione p recuperandolo
+    			                                       // dalla mappa letters, e successivamente setto setDefaultButton a true
+    		}
+    	}
     }
 
+    
     @FXML
     void handleReset(ActionEvent event) {
+    	//"pulisco" l'interfaccia grafica
+    	for (Pos p : letters.keySet()) {
+    		letters.get(p).setDefaultButton(false);
+    	}
     	model.reset();
     }
     
     @FXML
     void handleRisolvi(ActionEvent event) {
-    	//TODO
+        txtResult.clear();
+    	
+    	List<String> tutte = this.model.trovaTutte();
+    	
+    	txtResult.appendText("HO TROVATO " + tutte.size() + " PAROLE\n");
+    	for(String s : tutte) {
+    		txtResult.appendText(s + "\n");
+    	}
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

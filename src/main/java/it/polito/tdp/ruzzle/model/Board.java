@@ -15,10 +15,18 @@ import javafx.beans.property.StringProperty;
  */
 public class Board {
 	private List<Pos> positions;
-	private Map<Pos, StringProperty> cells;
+	private Map<Pos, StringProperty> cells;  //StringProperty è una classe che include una stringa.
+	                                         // Guardando l'interfaccia grafica ogni volta che faccio
+	                                         // reset dovrei andare bottone per bottone a fare una 
+	                                         // setText(), in questo modo creo un collegamento tra la
+	                                         // struttura dati sottostante e il bottone e quindi quando
+	                                         // opero un cambiamento sulla struttura dati, tipo cambiare
+	                                         // lettera, con la StringProperty il cambiamento verrà
+	                                         // direttamente riflesso sul bottone.  
 
 	private int size;
 
+	
 	/**
 	 * Crea una nuova scacchiera della dimensione specificata
 	 * @param size
@@ -43,6 +51,7 @@ public class Board {
 		}
 	}
 	
+	
 	/**
 	 * Fornisce la {@link StringProperty} corrispondente alla {@link Pos} specificata. <p>
 	 * 
@@ -51,15 +60,15 @@ public class Board {
 	 * @param p
 	 * @return
 	 */
-	public StringProperty getCellValueProperty(Pos p) {
-		return this.cells.get(p) ;
+	public StringProperty getCellValueProperty(Pos p) {  // ritorna la StringProperty associata alla specifica posizione che gli passiamo come attributo
+		return this.cells.get(p) ;              
 	}
 
 	/**
 	 * Restituisce la lista di oggetti {@link  Pos} che corrispondono alle posizioni lecite sulla scacchiera. Gli elementi sono ordinati per righe.
 	 * @return
 	 */
-	public List<Pos> getPositions() {
+	public List<Pos> getPositions() { // ritorna tutte le posizione salvate nella bord
 		return positions;
 	}
 
@@ -83,7 +92,7 @@ public class Board {
 	 * @param p
 	 * @return
 	 */
-	public List<Pos> getAdjacencies(Pos p) {
+	public List<Pos> getAdjacencies(Pos p) { // data una posizione nella matrice, questo metodo ritorna tutte le posizioni adiacenti
 		List<Pos> result = new ArrayList<>() ;
 		
 		for(int r = -1; r<=1; r++) {
