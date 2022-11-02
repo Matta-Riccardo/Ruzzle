@@ -111,7 +111,7 @@ public class FXMLController {
     	
     	//TODO
     	
-    	//voglio ricercando la parola illuminare l'interfaccia grafica (i bottoni) quando trovo la parola
+    	//voglio, ricercando la parola illuminare l'interfaccia grafica (i bottoni) quando trovo la parola
     	//per vederla graficamente sulla matrice: posso farlo agendo sulla proprietà di ogni bottone in JavaFX 
     	//se un boottone ha defaultSetButton settata a true si illumina, se falsa rimane un bottone classico
     	
